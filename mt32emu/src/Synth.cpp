@@ -44,7 +44,7 @@ static const ControlROMMap ControlROMMaps[8] = {
 	{0x4010, 22, "\000verX.XX  30 Sep, 88 ", 0x3000,  128, 0x8000, 0x0000, false, 0xC000, 0x4000, false, 0x3200,  30, 0x741C,  85,  0x57E5, 0x5800, 0x57EE, 0x5270, 0x527C, 0x528C, 0x5228}, // MT-32 Blue Ridge mod
 	{0x2205, 22, "\000CM32/LAPC1.00 890404", 0x8100,  256, 0x8000, 0x8000, false, 0x8080, 0x8000, false, 0x8500,  64, 0x8580,  85,  0x4F65, 0x4F80, 0x4F6E, 0x48A1, 0x48A5, 0x48BE, 0x48D5},
 	{0x2205, 22, "\000CM32/LAPC1.02 891205", 0x8100,  256, 0x8000, 0x8000, true,  0x8080, 0x8000, true,  0x8500,  64, 0x8580,  85,  0x4F93, 0x4FAE, 0x4F9C, 0x48CB, 0x48CF, 0x48E8, 0x48FF}, // CM-32L
-	{0x2205, 21, "\000 D-110  ver1.10   Au", 0x8900,  256, 0x8000, 0x8000, true,  0x8080, 0x8000, true,  0x9200,  64, 0x8D80,  85,  0x2CFF, 0x2D11, 0x2D08, 0x4A45, 0x4A49, 0x4A62, 0x4A79}  // D-110
+	{0x2205, 21, "\000 D-110  ver1.10   Au", 0x8900,  256, 0x8000, 0x8000, true,  0x8080, 0x8000, true,  0x8D00,  64, 0x8D80,  85,  0x2CFF, 0x2D11, 0x2D08, 0x4A45, 0x4A49, 0x4A62, 0x4A79}  // D-110
 	// (Note that all but CM-32L ROM actually have 86 entries for rhythmTemp)
 };
 
@@ -357,7 +357,7 @@ bool Synth::initCompressedTimbre(int timbreNum, const Bit8u *src, unsigned int s
 bool Synth::initTimbres(Bit16u mapAddress, Bit16u offset, int count, int startTimbre, bool compressed) {
 	const Bit8u *timbreMap = &controlROMData[mapAddress];
 	for (Bit16u i = 0; i < count * 2; i += 2) {
-		Bit16u address = (timbreMap[i + 1] << 8) | timbreMap[i];
+		Bit32u address = (timbreMap[i + 1] << 8) | timbreMap[i];
 		if (!compressed && (address + offset + sizeof(TimbreParam) > CONTROL_ROM_SIZE)) {
 			printDebug("Control ROM error: Timbre map entry 0x%04x for timbre %d points to invalid timbre address 0x%04x", i, startTimbre, address);
 			return false;
