@@ -134,7 +134,7 @@ const Bit8u SYSEX_CMD_RJC = 0x4F; // Rejection
 
 const int MAX_SYSEX_SIZE = 512; // FIXME: Does this correspond to a real MIDI buffer used in h/w devices?
 
-const unsigned int CONTROL_ROM_SIZE = 64 * 1024;
+const unsigned int CONTROL_ROM_SIZE = 160 * 1024;
 
 class ReportHandler {
 friend class Synth;
